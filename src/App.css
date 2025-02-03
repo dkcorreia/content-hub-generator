@@ -1,0 +1,153 @@
+/* General App Layout */
+.App {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.form-section {
+  width: 40%;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.preview-section {
+  width: 55%;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px; /* Adds space between buttons and live preview */
+}
+
+/* Form Inputs */
+input[type="text"],
+textarea {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Buttons */
+button {
+  background: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-family: 'Roboto', sans-serif;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+button.save-button {
+  background: #28a745;
+}
+
+button.reset-button {
+  background: #dc3545;
+}
+
+button.save-button:hover {
+  background: #218838;
+}
+
+button.reset-button:hover {
+  background: #c82333;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5 {
+  margin-bottom: 10px;
+  margin-top: 50px;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-size: 32px;
+  line-height: 1.125;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 21px;
+  line-height: 1.19;
+  font-weight: 600;
+}
+
+/* Links */
+.link, a {
+  text-decoration: none;
+  color: #06c;
+}
+
+.docs-link {
+  font-size: 17px;
+  line-height: 1.47;
+  font-weight: 400;
+  padding: 0 .7em 0 0;
+  color: #06c;
+}
+
+/* Button Containers */
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.button-container-top {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+
+.button-container button,
+.button-container input[type="file"],
+.button-container-top button,
+.button-container-top input[type="file"] {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+/* Live Preview Tabs */
+.preview-tabs-navigation {
+  display: flex;
+  border-bottom: 2px solid #bbb;
+  margin-bottom: 20px;
+}
+
+.preview-tab {
+  font-family: 'Arial', sans-serif;
+  padding: 8px 16px;
+  cursor: default;
+  border: none;
+  background: #f5f5f5;
+  color: #555;
+}
+
+.preview-tab.active {
+  background: #2e2e2e;
+  color: #fff;
+}
+
+.preview-tab:hover {
+  background: #3c3c3c;
+}

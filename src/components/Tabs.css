@@ -1,0 +1,306 @@
+/* Tabs Navigation */
+.tabs-navigation {
+  display: flex;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+  overflow-x: auto; /* Enable scrolling for many tabs */
+  white-space: nowrap; /* Prevent wrapping */
+  padding-bottom: 5px;
+  scrollbar-width: thin; /* Firefox scrollbar */
+  scrollbar-color: #bbb #f2f2f2; /* Custom scrollbar */
+}
+
+.tabs-navigation::-webkit-scrollbar {
+  height: 8px; /* Scrollbar height */
+}
+
+.tabs-navigation::-webkit-scrollbar-thumb {
+  background: #bbb; /* Thumb color */
+  border-radius: 4px; /* Rounded edges */
+  border: 2px solid #f2f2f2; /* Contrast with track */
+}
+
+.tabs-navigation::-webkit-scrollbar-thumb:hover {
+  background: #999; /* Darker on hover */
+}
+
+.tabs-navigation::-webkit-scrollbar-track {
+  background: #f2f2f2; /* Track color */
+}
+
+/* Tab Container */
+.tab-container {
+  display: flex;
+  flex-direction: column; /* Stack icons above the tab button */
+  align-items: flex-end; /* Align icons and tab button */
+  margin-right: 10px;
+  position: relative; /* Enable positioning for icons */
+}
+
+/* Tab Button */
+.tab-button {
+  font-family: 'Roboto', sans-serif;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background: #d3d3d3; /* Default inactive tab */
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  color: #333;
+  margin-top: 5px; /* Space between icons and tab button */
+  margin-bottom: 3px; /* Space below tab */
+}
+
+.tab-button.active {
+  background: #4a4a4a; /* Active tab color */
+  color: #fff; /* White text for contrast */
+  font-weight: bold;
+}
+
+.tab-button:hover {
+  background: #707070; /* Hover color */
+  color: #fff;
+}
+
+/* Tab Actions */
+.tab-actions {
+  display: flex;
+  justify-content: flex-end; /* Align icons to the right */
+  gap: 2px; /* Tightened spacing between icons */
+  margin-right: 4px; /* Adjusted spacing */
+}
+
+/* Tab Action Buttons (Move Left, Move Right, Remove Tab) */
+.remove-tab-button,
+.move-left-button,
+.move-right-button {
+  background-color: #d3d3d3; /* Default button background */
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  width: 20px; /* Square dimensions */
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  padding: 0;
+}
+
+.remove-tab-button:hover {
+  background-color: #e06666; /* Red hover */
+  color: white;
+}
+
+.move-left-button:hover,
+.move-right-button:hover {
+  background-color: #6aa84f; /* Green hover */
+  color: white;
+}
+
+.remove-tab-button::before {
+  content: "✖"; /* "X" for remove */
+  font-size: 14px;
+  color: inherit;
+}
+
+.move-left-button::before {
+  content: "◀"; /* Left arrow */
+  font-size: 12px;
+}
+
+.move-right-button::before {
+  content: "▶"; /* Right arrow */
+  font-size: 12px;
+}
+
+.remove-tab-button:focus,
+.move-left-button:focus,
+.move-right-button:focus {
+  outline: none;
+}
+
+/* Group Container */
+.group-container {
+  border: 1px solid gray;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px; /* Rounded corners for group box */
+  background: #f9f9f9; /* Slight background color */
+}
+
+/* Group Actions */
+.group-actions {
+  display: flex;
+  justify-content: flex-end; /* Align icons to the right */
+  gap: 2px; /* Tightened spacing between icons */
+  margin-bottom: 10px; /* Space between actions and content */
+}
+
+/* Group Action Buttons (Move Up, Move Down, Remove Group) */
+.move-up-button,
+.move-down-button,
+.remove-group-button {
+  background-color: #d3d3d3; /* Default button background */
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  width: 20px; /* Square dimensions */
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  padding: 0;
+}
+
+.move-up-button:hover {
+  background-color: #6aa84f; /* Green hover */
+  color: white;
+}
+
+.move-down-button:hover {
+  background-color: #6aa84f; /* Green hover */
+  color: white;
+}
+
+.remove-group-button:hover {
+  background-color: #e06666; /* Red hover */
+  color: white;
+}
+
+.move-up-button::before {
+  content: "▲"; /* Up arrow */
+  font-size: 12px;
+}
+
+.move-down-button::before {
+  content: "▼"; /* Down arrow */
+  font-size: 12px;
+}
+
+.remove-group-button::before {
+  content: "✖"; /* "X" for remove */
+  font-size: 14px;
+  color: inherit;
+}
+
+.move-up-button:focus,
+.move-down-button:focus,
+.remove-group-button:focus {
+  outline: none;
+}
+
+/* Section Actions (Matching Group Actions) */
+.section-actions {
+  display: flex;
+  justify-content: flex-end; /* Align icons to the right */
+  gap: 2px; /* Tightened spacing between icons */
+  margin-bottom: 10px; /* Space between actions and content */
+}
+
+.move-up-button,
+.move-down-button,
+.remove-section-button {
+  background-color: #d3d3d3; /* Default button background */
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  width: 20px; /* Square dimensions */
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  padding: 0;
+}
+
+.move-up-button:hover {
+  background-color: #6aa84f; /* Green hover */
+  color: white;
+}
+
+.move-down-button:hover {
+  background-color: #6aa84f; /* Green hover */
+  color: white;
+}
+
+.remove-section-button:hover {
+  background-color: #e06666; /* Red hover */
+  color: white;
+}
+
+.move-up-button::before {
+  content: "▲"; /* Up arrow */
+  font-size: 12px;
+}
+
+.move-down-button::before {
+  content: "▼"; /* Down arrow */
+  font-size: 12px;
+}
+
+.remove-section-button::before {
+  content: "✖"; /* "X" for remove */
+  font-size: 14px;
+  color: inherit;
+}
+
+.move-up-button:focus,
+.move-down-button:focus,
+.remove-section-button:focus {
+  outline: none;
+}
+
+/* Active Tab Highlight */
+.active-tab {
+  border-left: 0px solid #4a4a4a; /* Highlight active tab */
+  padding-left: 0px; /* Align content after border */
+}
+
+.link-actions {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.move-up-button,
+.move-down-button,
+.remove-link-button {
+  background-color: #d3d3d3; /* Default button background */
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  width: 20px; /* Square dimensions */
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  padding: 0;
+}
+
+.move-up-button:hover,
+.move-down-button:hover {
+  background-color: #6aa84f; /* Green hover for move buttons */
+  color: white;
+}
+
+.remove-link-button:hover {
+  background-color: #e06666; /* Red hover for remove button */
+  color: white;
+}
+
+.move-up-button:before {
+  content: "▲"; /* Up arrow icon */
+  font-size: 12px;
+}
+
+.move-down-button:before {
+  content: "▼"; /* Down arrow icon */
+  font-size: 12px;
+}
+
+.remove-link-button:before {
+  content: "✖"; /* Remove icon */
+  font-size: 14px;
+}

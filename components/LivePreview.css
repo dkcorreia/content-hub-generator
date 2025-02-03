@@ -1,0 +1,109 @@
+/* LivePreview.css */
+
+.live-preview {
+  font-family: 'Roboto', sans-serif;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tabs-navigation {
+  margin-bottom: 15px;
+}
+
+.tab-button {
+  margin-right: 5px;
+  padding: 8px 15px; /* Added padding for better button feel */
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+.tab-content {
+  border: none;
+}
+
+.tab-content h2 {
+  margin-top: 0;
+  color: #444;
+}
+
+.tab-content h3 {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.tab-content p {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+/* Styles for H1 */
+.title {
+  font-size: 32px;
+  line-height: 1.125;
+  font-weight: 400;
+  letter-spacing: .004em;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Styles for H2 */
+.tab-title {
+  font-size: 21px;
+  line-height: 1.19048;
+  font-weight: 600;
+  letter-spacing: 0.011em;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Styles for links */
+a,
+.link:link,
+.link:visited {
+  text-decoration: none;
+  color: #06c;
+}
+
+.docs-link {
+  font-size: 17px;
+  line-height: 1.47059;
+  font-weight: 400;
+  letter-spacing: -.022em;
+  font-family: 'Roboto', sans-serif;
+  display: inline-block;
+  padding: 0 .7em 0 0;
+}
+.live-preview-title {
+  color: red; /* Make the "Live Preview" text red */
+  display: inline-flex;
+  align-items: center;
+}
+
+.red-circle {
+  width: 15px; /* Adjust the size as needed */
+  height: 15px;
+  background-color: red;
+  border-radius: 50%;
+  margin-left: 10px; /* Add some spacing between the text and the circle */
+}
+
+.group-container {
+  border: 1px solid darkgray;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 2px; /* Optional for rounded corners */
+}
+.live-preview a {
+  color: rgba(0, 81, 198, 1);
+  text-decoration: none; /* Optional to remove underlines */
+}
+
+.live-preview a:hover {
+  text-decoration: underline; /* Optional for hover effect */
+}
+
+.live-preview a:visited {
+  color: rgba(0, 81, 198, 1); /* Maintain the same color for visited links */
+}

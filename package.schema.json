@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Package",
+  "description": "NPM package.json file schema with custom extensions",
+  "type": "object",
+  "required": ["name", "version"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the package"
+    },
+    "version": {
+      "type": "string",
+      "description": "Version of the package using semver"
+    },
+    "private": {
+      "type": "boolean",
+      "description": "If true, the package will not be published to npm"
+    },
+    "dependencies": {
+      "type": "object",
+      "description": "Package dependencies",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^(\\^|~|>=|>|<=|<|=)?\\d+\\.\\d+\\.\\d+(-[\\w.-]+)?(\\+[\\w.-]+)?$"
+      }
+    },
+    "scripts": {
+      "type": "object",
+      "description": "Package scripts",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "eslintConfig": {
+      "type": "object",
+      "description": "ESLint configuration",
+      "properties": {
+        "extends": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "browserslist": {
+      "type": "object",
+      "description": "Browserlist configuration",
+      "properties": {
+        "production": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "development": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

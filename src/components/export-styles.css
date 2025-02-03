@@ -1,0 +1,30 @@
+/* Styles for H1 */
+h1 {
+    font-size: 32px;
+    line-height: 1.125;
+    font-weight: 600;
+    letter-spacing: .004em;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Styles for H2 */
+  h2 {
+    font-size: 21px;
+    line-height: 1.19048;
+    font-weight: 600;
+    letter-spacing: 0.011em;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Link styles */
+  .link:link, .link:visited, a:link, a:visited {
+    text-decoration: none;
+    color: rgb(0, 81, 198);
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Add any other shared styles here */
+  

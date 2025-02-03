@@ -1,0 +1,56 @@
+.section-actions {
+    display: flex;
+    justify-content: flex-end; /* Align icons to the right */
+    gap: 2px; /* Tightened spacing between icons */
+    margin-bottom: 10px; /* Space between actions and content */
+  }
+  
+  .move-up-button,
+  .move-down-button,
+  .remove-section-button {
+    background-color: #d3d3d3; /* Default button background */
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    width: 20px; /* Square dimensions */
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    padding: 0;
+  }
+  
+  .move-up-button:hover,
+  .move-down-button:hover {
+    background-color: #6aa84f; /* Green hover */
+    color: white;
+  }
+  
+  .remove-section-button:hover {
+    background-color: #e06666; /* Red hover */
+    color: white;
+  }
+  
+  .move-up-button::before {
+    content: "▲"; /* Up arrow */
+    font-size: 12px;
+  }
+  
+  .move-down-button::before {
+    content: "▼"; /* Down arrow */
+    font-size: 12px;
+  }
+  
+  .remove-section-button::before {
+    content: "✖"; /* "X" for remove */
+    font-size: 14px;
+    color: inherit;
+  }
+  
+  .move-up-button:focus,
+  .move-down-button:focus,
+  .remove-section-button:focus {
+    outline: none;
+  }
+  
