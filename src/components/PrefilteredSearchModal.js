@@ -1,6 +1,8 @@
+// src/components/PrefilteredSearchModal.js
+
 import React, { useState, useEffect } from 'react';
 import './ExportModal.css'; 
-// You can create a dedicated CSS file if needed
+// or use a dedicated PrefilteredSearchModal.css if you'd rather
 
 function PrefilteredSearchModal({
   isOpen,
@@ -41,7 +43,7 @@ function PrefilteredSearchModal({
         <div className="modal-buttons">
           <button onClick={onClose} className="modal-button cancel-button">
             Cancel
-          </button>git commit -a
+          </button>
           <button onClick={handleConfirm} className="modal-button confirm-button">
             Confirm
           </button>

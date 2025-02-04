@@ -1,6 +1,14 @@
+// src/components/Tabs.js
+
 import React, { useState } from 'react';
 import './Tabs.css'; 
-import PrefilteredSearchModal from './PrefilteredSearchModal';
+import PrefilteredSearchModal from './PrefilteredSearchModal'; // The new modal
+
+
+
+
+
+
 
 function Tabs({ tabs, onTabsChange }) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -115,7 +123,7 @@ function Tabs({ tabs, onTabsChange }) {
       description: '',
       links: [],
       prefilteredSearchString: '', // Initialize
-      prefilteredSearchResults: []
+      prefilteredSearchResults:[]
     });
     onTabsChange(updatedTabs);
   };
@@ -164,10 +172,20 @@ function Tabs({ tabs, onTabsChange }) {
     onTabsChange(updatedTabs);
   };
 
-  const handleLinkChange = (tabIndex, groupIndex, sectionIndex, linkIndex, field, value) => {
+  const handleLinkChange = (
+    tabIndex,
+    groupIndex,
+    sectionIndex,
+    linkIndex,
+    field,
+    value
+  ) => {
     const updatedTabs = [...tabs];
     const section = updatedTabs[tabIndex].groups[groupIndex].sections[sectionIndex];
-    section.links[linkIndex] = { ...section.links[linkIndex], [field]: value };
+    section.links[linkIndex] = {
+      ...section.links[linkIndex],
+      [field]: value,
+    };
     onTabsChange(updatedTabs);
   };
 
@@ -209,7 +227,7 @@ function Tabs({ tabs, onTabsChange }) {
     setIsSearchModalOpen(false);
   };
 
-  // 3) Confirm from Modal => Store the user’s search string and call the API
+  // 3) Confirm from Modal => Store the user’s search string in that section
   const handleConfirmSearchModal = (searchString) => {
     setIsSearchModalOpen(false);
 
@@ -218,135 +236,170 @@ function Tabs({ tabs, onTabsChange }) {
 
     const updatedTabs = [...tabs];
     const section = updatedTabs[tabIndex].groups[groupIndex].sections[sectionIndex];
-
-    // Parse the search string and extract filters
-    let filter = decodeURIComponent(decodeURIComponent(searchString)).replaceAll("+", " ");
-    let filter_list = filter.split("*");
-    let product_filters = [];
-    let doc_type_filters = [];
-    for (let i = 0; i < filter_list.length; i++) {
+    //start to pull the prefiltered result
+    let filter = decodeURIComponent(decodeURIComponent(searchString)).replaceAll("+"," ")
+    let filter_list = filter.split("*")
+    let product_filters = []
+    let doc_type_filters = []
+    for(let i=0; i< filter_list.length; i++) {
       let item_filter = filter_list[i];
       let key_value_list = item_filter.split("~");
-      if (key_value_list.length === 2) {
-        // For debugging purposes, you might remove these alerts later
-        alert(key_value_list[0]);
-        alert(key_value_list[1].split("_"));
-        if (key_value_list[0] === "Product_custom") {
-          product_filters = key_value_list[1].split("_");
+      if (key_value_list.length===2) {
+        alert(key_value_list[0])
+        alert(key_value_list[1].split("_"))
+        if (key_value_list[0] == "Product_custom") {
+          product_filters = key_value_list[1].split("_")
         }
-        if (key_value_list[0] === "Document_Type_custom") {
-          doc_type_filters = key_value_list[1].split("_");
+        if (key_value_list[0] == "Document_Type_custom") {
+          doc_type_filters = key_value_list[1].split("_")
         }
       }
+        
     }
+    let FT_Server = "https://xilinx-staging.fluidtopics.net"
+          var payload = {
 
-    const FT_Server = "https://xilinx-staging.fluidtopics.net";
-    let payload = {
-      "contentLocale": "en-US",
-      "filters": [
-        { "key": "ft:document_type", "values": ["map", "document"] },
-        { "key": "Product_custom", "values": product_filters },
-        { "key": "isLatest", "values": ["true"] }
-      ],
-      "sort": [
-        { "key": "ft:lastPublication", "order": "DESC" }
-      ],
-      "paging": {
-        "perPage": 1000,
-        "page": 1
+              "contentLocale": "en-US",
+              "filters": [{
+                      "key": "ft:document_type",
+                      "values": ["map", "document"]
+                  }, {
+                      "key": "Product_custom",
+                      "values": product_filters
+                  }, 
+                  {
+                      "key": "isLatest",
+                      "values": ["true"]
+                  }
+              ],
+              "sort": [{
+                      "key": "ft:lastPublication",
+                      "order": "DESC"
+                  }
+              ],
+              "paging": {
+                  "perPage": 1000,
+                  "page": 1
+              }
+
+          }
+      if (doc_type_filters.length !== 0) {
+        payload = {
+
+          "contentLocale": "en-US",
+          "filters": [{
+                  "key": "ft:document_type",
+                  "values": ["map", "document"]
+              }, {
+                  "key": "Product_custom",
+                  "values": product_filters
+              }, {
+                "key": "Document_Type_custom",
+                "values": doc_type_filters
+            },
+              {
+                  "key": "isLatest",
+                  "values": ["true"]
+              }
+          ],
+          "sort": [{
+                  "key": "ft:lastPublication",
+                  "order": "DESC"
+              }
+          ],
+          "paging": {
+              "perPage": 1000,
+              "page": 1
+          }
+
       }
-    };
-
-    if (doc_type_filters.length !== 0) {
-      payload = {
-        "contentLocale": "en-US",
-        "filters": [
-          { "key": "ft:document_type", "values": ["map", "document"] },
-          { "key": "Product_custom", "values": product_filters },
-          { "key": "Document_Type_custom", "values": doc_type_filters },
-          { "key": "isLatest", "values": ["true"] }
-        ],
-        "sort": [
-          { "key": "ft:lastPublication", "order": "DESC" }
-        ],
-        "paging": {
-          "perPage": 1000,
-          "page": 1
-        }
-      };
-    }
-
-    const url = FT_Server + '/api/khub/clustered-search';
+      }
+      let url = FT_Server + '/api/khub/clustered-search';
     const requestOptions = {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer YxfWiNQvM7Ejje6WRSmCQ2K77NMskNoK'
-      },
-      body: JSON.stringify(payload)
-    };
+      headers: { 'Content-Type': 'application/json', 'Authorization':'Bearer YxfWiNQvM7Ejje6WRSmCQ2K77NMskNoK' },
+      body: JSON.stringify( payload)
+  };
+  fetch(url, requestOptions)
+  .then(response => response.json())
+  .then(function(data) {
+    console.log(data["results"].length)
+    let html_string = "<ul>"
+    let my_doc_result = []
+    for (let i = 0; i < data["results"].length; i++) {
+            let result = data["results"][i]["entries"][0]
+            //console.log(result)
+            let result_type = result["type"]
+            let result_title = ""
+            let result_url = ""
+            let metadatas = []
+            let document_type = ""
+            let description = ""
+            let release_date = ""
+            if (result_type == "MAP") {
+                result_title = result["map"]["title"]
+                    //result_url  = result["map"]["readerUrl"]
+                    metadatas = result["map"]["metadata"]
+            } else if (result_type == "DOCUMENT") {
+                result_title = result["document"]["title"]
+                    //result_url  = result["document"]["readerUrl"]
+                    metadatas = result["document"]["metadata"]
 
-    fetch(url, requestOptions)
-      .then(response => response.json())
-      .then(function(data) {
-        console.log(data["results"].length);
-        let my_doc_result = [];
-        for (let i = 0; i < data["results"].length; i++) {
-          let result = data["results"][i]["entries"][0];
-          let result_type = result["type"];
-          let result_title = "";
-          let result_url = "";
-          let metadatas = [];
-          let document_type = "";
-          let description = "";
-          let release_date = "";
-          if (result_type === "MAP") {
-            result_title = result["map"]["title"];
-            metadatas = result["map"]["metadata"];
-          } else if (result_type === "DOCUMENT") {
-            result_title = result["document"]["title"];
-            metadatas = result["document"]["metadata"];
-          }
-          for (let j = 0; j < metadatas.length; j++) {
-            let key = metadatas[j]["key"];
-            if (key === "Document_Type") {
-              if (metadatas[j]["values"] == null) continue;
-              document_type = metadatas[j]["values"][0];
             }
-            if (key === "Release_Date") {
-              if (metadatas[j]["values"] == null) continue;
-              release_date = metadatas[j]["values"][0];
+            for (let i = 0; i < metadatas.length; i++) {
+                let key = metadatas[i]["key"]
+                    if (key == "Document_Type") {
+                        if (metadatas[i]["values"] == null)
+                            continue;
+
+                        document_type = metadatas[i]["values"][0]
+                    }
+                    if (key == "Release_Date") {
+                        if (metadatas[i]["values"] == null)
+                            continue;
+
+                        release_date = metadatas[i]["values"][0]
+                    }
+                    if (key == "ft:description") {
+                        if (metadatas[i]["values"] == null)
+                            continue;
+
+                        description = metadatas[i]["values"][0]
+                    }
+                    if (key == "ft:prettyUrl") {
+                        if (metadatas[i]["values"] == null)
+                            continue;
+                        if (result_type == "MAP") {
+
+                            result_url = "/r/" + metadatas[i]["values"][0]
+                        } else if (result_type == "DOCUMENT") {
+                            result_url = "/v/u/" + metadatas[i]["values"][0]
+
+                        }
+                    }
             }
-            if (key === "ft:description") {
-              if (metadatas[j]["values"] == null) continue;
-              description = metadatas[j]["values"][0];
+            html_string += "<li><a href=" + "'" + result_url + "'" + ">" + result_title + "</a>"
+            html_string += "<p>Document Type:" + document_type + "</p>"
+            if (description.length !== 0) {
+                html_string += "<p>Description: " + description + "</p></li>"
             }
-            if (key === "ft:prettyUrl") {
-              if (metadatas[j]["values"] == null) continue;
-              if (result_type === "MAP") {
-                result_url = "/r/" + metadatas[j]["values"][0];
-              } else if (result_type === "DOCUMENT") {
-                result_url = "/v/u/" + metadatas[j]["values"][0];
-              }
-            }
-          }
-          my_doc_result.push({
-            "document_type": document_type,
-            "description": description,
-            "title": result_title,
-            "link": result_url,
-            "release_date": release_date
-          });
-        }
-        // Update the section with the search string and results
-        section.prefilteredSearchString = searchString;
-        section.prefilteredSearchResults = my_doc_result;
-        onTabsChange(updatedTabs);
-      })
-      .catch(error => {
-        console.error("Fetch error: ", error);
-        alert("Error fetching prefiltered search results: " + error.message);
-      });
+            my_doc_result.push({
+                "document_type": document_type,
+                "description": description,
+                "title": result_title,
+                "link": result_url,
+                "release_date": release_date
+            })
+            //html_string +=my_doc_result
+    }
+    html_string += "</ul>"
+    // console.log(html_string)
+    section.prefilteredSearchString = searchString
+    section.prefilteredSearchResults = my_doc_result
+    onTabsChange(updatedTabs);
+
+
+  });
   };
 
   return (
@@ -479,7 +532,8 @@ function Tabs({ tabs, onTabsChange }) {
                           activeTabIndex,
                           groupIndex,
                           sectionIndex,
-                          section.prefilteredSearchString
+                          section.prefilteredSearchString,
+                          section.prefilteredSearchResults
                         )
                       }
                       style={{ marginRight: '10px' }}

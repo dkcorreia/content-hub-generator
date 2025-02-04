@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState, useEffect, useRef } from "react";
 import FormInput from "./components/FormInput";
 import Tabs from "./components/Tabs";
@@ -108,31 +109,31 @@ body {
   font-style: italic;
   color: #444;
 }
-
-.pre-filter-box.pagination {
-  margin-top: 10px;
-}
 `;
 
 /**
  * 2. Helper function to generate the FULL HTML for exporting,
  *    including inline <style> tags and all tabs/groups/sections/links,
- *    plus the prefiltered search results.
+ *    plus the "prefilteredSearchString" snippet.
  */
 function generateExportedHTML(formData) {
-  // Helper to render the prefiltered search results into HTML.
-  const render_result = (prefiltered_results) => {
-    let innerhtml = "<ul>";
+  const render_result = (prefiltered_results) =>{
+    let innerhtml = "<ul>"
     for (let i = 0; i < prefiltered_results.length; i++) {
-      let prefiltered_result = prefiltered_results[i];
-      const { document_type, description, title, link, release_date } = prefiltered_result;
-      const li = `<li><a href="${link}">${title}</a><p>Document Type: ${document_type}</p><p>Description: ${description}</p></li>`;
-      innerhtml += li + "<br><br>";
-    }
-    innerhtml += "</ul>";
-    return innerhtml;
+      let prefiltered_result = prefiltered_results[i]
+      const {
+        document_type,
+        description,
+        title,
+        link,
+        release_date
+    } = prefiltered_result;
+    const li = `<li><a href= ${link}>${title}</a><p>Document Type: ${document_type}</p><p>Description: ${description}</p></li>`;
+    innerhtml +=li +"<br><br>";
+    }    
+    innerhtml +="</ul>"
+    return innerhtml
   };
-
   const tabsHtml = (formData.tabs || []).map((tab) => {
     const groupsHtml = (tab.groups || []).map((group) => {
       const sectionsHtml = (group.sections || []).map((section) => {
@@ -149,15 +150,12 @@ function generateExportedHTML(formData) {
             `;
           })
           .join("");
-
-        // Render prefiltered search results if they exist.
-        const prefilteredSearchHtml =
-          section.prefilteredSearchResults &&
-          section.prefilteredSearchResults.length > 0
-            ? `<div class="pre-filter-box pagination">${render_result(
-                section.prefilteredSearchResults
-              )}</div>`
-            : "";
+          
+                
+        // Prefiltered search snippet
+        const prefilteredSearchHtml = section.prefilteredSearchString
+          ? `<div className='pre-filter-box .pagination' dangerouslySetInnerHTML={{ __html: render_result(section.prefilteredSearchResults) }}></div>`
+          : "";
 
         return `
           <div class="section-container">
@@ -166,7 +164,7 @@ function generateExportedHTML(formData) {
             <div class="links-container">
               ${linksHtml}
             </div>
-            ${prefilteredSearchHtml}
+          <div className='pre-filter-box .pagination'>${render_result(section.prefilteredSearchResults)}</div>   
           </div>
         `;
       }).join("");

@@ -1,22 +1,28 @@
+// src/components/LivePreview.js
 import React, { useState } from 'react';
-import './LivePreview.css';
+import './LivePreview.css'; // your existing styles
+
+
 
 function LivePreview({ formData }) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-
-  // Helper function to render prefiltered search results.
-  const render_result = (prefiltered_results) => {
-    let innerhtml = "<ul>";
+  const render_result = (prefiltered_results) =>{
+    let innerhtml = "<ul>"
     for (let i = 0; i < prefiltered_results.length; i++) {
-      let prefiltered_result = prefiltered_results[i];
-      const { document_type, description, title, link, release_date } = prefiltered_result;
-      const li = `<li><a href="${link}">${title}</a><p>Document Type: ${document_type}</p><p>Description: ${description}</p></li>`;
-      innerhtml += li + "<br><br>";
-    }
-    innerhtml += "</ul>";
-    return innerhtml;
+      let prefiltered_result = prefiltered_results[i]
+      const {
+        document_type,
+        description,
+        title,
+        link,
+        release_date
+    } = prefiltered_result;
+    const li = `<li><a href= ${link}>${title}</a><p>Document Type: ${document_type}</p><p>Description: ${description}</p></li>`;
+    innerhtml +=li +"<br><br>";
+    }    
+    innerhtml +="</ul>"
+    return innerhtml
   };
-
   return (
     <div className="live-preview">
       <h3 className="live-preview-title">
@@ -34,7 +40,9 @@ function LivePreview({ formData }) {
             {formData.tabs.map((tab, tabIndex) => (
               <button
                 key={tabIndex}
-                className={`tab-button ${tabIndex === activeTabIndex ? 'active' : ''}`}
+                className={`tab-button ${
+                  tabIndex === activeTabIndex ? 'active' : ''
+                }`}
                 onClick={() => setActiveTabIndex(tabIndex)}
               >
                 {tab.title || `Tab ${tabIndex + 1}`}
@@ -62,7 +70,9 @@ function LivePreview({ formData }) {
                 {group.sections?.map((section, sectionIndex) => (
                   <div key={sectionIndex} className="section-container">
                     <h4 className="section-title">{section.name}</h4>
-                    <p className="section-description">{section.description}</p>
+                    <p className="section-description">
+                      {section.description}
+                    </p>
 
                     {/* Links */}
                     <div className="links-container">
@@ -79,14 +89,7 @@ function LivePreview({ formData }) {
                         </div>
                       ))}
                     </div>
-                    {/* Render prefiltered search results if present */}
-                    {section.prefilteredSearchResults &&
-                      section.prefilteredSearchResults.length > 0 && (
-                        <div
-                          className="pre-filter-box pagination"
-                          dangerouslySetInnerHTML={{ __html: render_result(section.prefilteredSearchResults) }}
-                        ></div>
-                      )}
+                    <div className='pre-filter-box .pagination' dangerouslySetInnerHTML={{ __html: render_result(section.prefilteredSearchResults) }}></div>
                   </div>
                 ))}
               </div>

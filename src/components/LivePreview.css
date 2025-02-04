@@ -18,7 +18,6 @@
   padding: 8px 15px; /* Added padding for better button feel */
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  margin-top: 25px;
 }
 
 .tab-content {
@@ -108,24 +107,70 @@ a,
 .live-preview a:visited {
   color: rgba(0, 81, 198, 1); /* Maintain the same color for visited links */
 }
-.link-item {
-  display: flex; /* Enables flexbox layout */
-  align-items: center; /* Aligns items vertically in the center */
-  gap: 8px; /* Adds spacing between the icon and the text */
-  margin-bottom: 10px; /* Space between links */
+
+/* Pre-Filtered */
+      
+ul {
+  list-style-type: none;
+  padding-left: 0;
 }
 
-.link-item img {
-  width: 32px; /* Adjust icon size */
-  height: auto; /* Maintain aspect ratio */
+li {
+  position: relative;
+  padding-left: 1.5em;
 }
 
-.link-item a {
-  font-size: 18px; /* Adjust text size */
-  color: #06c; /* Match your link color */
-  text-decoration: none; /* No underline */
+li::marker {
+  content: "";
 }
 
-.link-item a:hover {
-  text-decoration: underline; /* Underline on hover */
+li a {
+  font-size: 12pt;
+  font-weight: ;
+  color: #679999;
+  text-decoration: none;
+}
+
+li a:hover {
+  text-decoration: underline;
+}
+
+li a + p {
+  font-weight: bold;
+  font-size: 11pt;
+}
+
+
+.pre-filter-box {
+	padding: 50px 50px;
+	float: left;
+
+}
+.clearfix::after {
+	clear: both;
+	display: table;
+}
+.options {
+	margin: 0px 0px 0px 0px;
+      float: left;
+    }
+
+.pagination .pagelink {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+	border: 1px solid #ddd;
+	margin: 0 4px;
+}
+
+.pagination a.active {
+	background-color: #ddd;
+	color: white;
+	border: 1px solid #ddd;
+}
+
+.pagination a:hover:not(.active) {
+	background-color: #ddd;
 }
